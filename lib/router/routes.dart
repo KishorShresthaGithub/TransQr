@@ -1,7 +1,3 @@
-enum Paths { home, scan, generate }
+enum Paths { home, scan, send }
 
-var routes = {
-  Paths.home: "/",
-  Paths.scan: "/scan",
-  Paths.generate: "/generate"
-};
+var routes = {Paths.home: "/", Paths.scan: "/scan", Paths.send: "/send"};

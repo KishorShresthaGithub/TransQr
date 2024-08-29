@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:transqr/components/commons/button.dart';
+import 'package:transqr/router/router.dart';
+import 'package:transqr/router/routes.dart';
 
 class Main extends StatelessWidget {
   Main({super.key});
@@ -15,6 +19,16 @@ class Main extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // handle scan qr pressed
+    void onScanPressed() {
+      GoRouter.of(context).go("/scan");
+    }
+
+    // handle send rq pressed
+    void onSendPressed() {
+      GoRouter.of(context).go("/send");
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("QR"),
@@ -25,12 +39,12 @@ class Main extends StatelessWidget {
           padding: const EdgeInsets.all(10),
           child: Column(
             children: [
-              Expanded(child: TextSvgButton(text: "Scan", child: scan)),
+              Expanded(
+                  child: TextSvgButton(
+                      text: "Scan", onPressed: onScanPressed, child: scan)),
               Expanded(
                 child: TextSvgButton(
-                  text: "Send",
-                  child: send,
-                ),
+                    text: "Send", onPressed: onSendPressed, child: send),
               )
             ],
           )),
@@ -39,16 +53,21 @@ class Main extends StatelessWidget {
 }
 
 class TextSvgButton extends StatelessWidget {
-  TextSvgButton({super.key, required this.child, required this.text});
+  VoidCallback? onPressed;
+
+  TextSvgButton(
+      {super.key, required this.child, required this.text, this.onPressed});
 
   final Widget child;
-  String text;
+  final String text;
 
   @override
   Widget build(BuildContext context) {
     return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-      Button(
-        onPressed: () {},
+      TQButton(
+        onPressed: () {
+          onPressed?.call();
+        },
         child: child,
       ),
       const SizedBox(
@@ -56,28 +75,5 @@ class TextSvgButton extends StatelessWidget {
       ),
       Text(text)
     ]);
-  }
-}
-
-class Button extends StatelessWidget {
-  VoidCallback onPressed;
-  Widget child;
-
-  Button({super.key, required this.onPressed, required this.child});
-
-  @override
-  Widget build(BuildContext ctx) {
-    return Container(
-        height: 200,
-        width: 200,
-        child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-                //borderRadius: BorderRadius.zero, //Rectangular border
-              ),
-            ),
-            onPressed: onPressed,
-            child: child));
   }
 }
