@@ -37,6 +37,7 @@ dependencies:
   go_router: ^14.2.7
   flutter_svg: ^2.0.10+1
   qr_flutter: ^4.1.0
+  mobile_scanner: ^5.2.1
 
 dev_dependencies:
   flutter_test:
