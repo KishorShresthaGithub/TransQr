@@ -68,17 +68,14 @@ class _SendViewState extends State<SendView> {
                       onTapOutside: (event) {
                         FocusManager.instance.primaryFocus?.unfocus();
                       },
-                      onSubmitted: (_) {
+                      onSubmitted: (text) {
+                        if (text == '') return;
+
                         handleTextChange();
                         FocusManager.instance.primaryFocus?.unfocus();
                       },
                       decoration: const InputDecoration(
                         hintText: "Enter text to encode to QR",
-                        border: InputBorder.none,
-                        focusedBorder: InputBorder.none,
-                        enabledBorder: InputBorder.none,
-                        errorBorder: InputBorder.none,
-                        disabledBorder: InputBorder.none,
                         hintTextDirection: TextDirection.ltr,
                         fillColor: Colors.transparent,
                       ),
